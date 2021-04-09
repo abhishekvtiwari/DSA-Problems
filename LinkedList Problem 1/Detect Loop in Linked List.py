@@ -1,37 +1,47 @@
-# A single node of a single linked list
 class Node:
-  def __init__(self, data = None, next=None): 
-    self.data = data
-    self.next = next
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
-# A Linked List class with a single head node
+
 class LinkedList:
-  def __init__(self):  
-    self.head = None
-  
-  def append(self, new_data):
-    new_node = Node(new_data)
-    if self.head is None:
-        self.head = new_node
-        return
+    def __init__(self):
+        self.head = None
 
-    last = self.head
-    while (last.next is not None):
-      last = last.next
+    def append(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next= new_node
 
-    last.next = new_node
-  
-  def printLL(self):
-    current = self.head
-    while(current):
-      print(current.data, end='=>')
-      current = current.next
+    def Print(self):
+        current = self.head
+        while current:
+            print(current.data, end=" ")
+            current = current.next
 
-if __name__=='__main__':
-  llist = LinkedList()
-  llist.append(20)
-  llist.append(4)
-  llist.append(15)
-  llist.append(10)
-  llist.printLL()
-    
+    def Detect_Loop(self):
+      s=[]
+      current=self.head
+      while current:
+        if current.data in s: 
+          return s
+        s.append(current.data)
+        current=current.next
+      return None
+
+a = LinkedList()
+a.append(20)
+a.append(4)
+a.append(15)
+a.append(10)
+a.append(18)
+a.append(19)
+a.head.next.next.next.next = a.head
+# a.Print()
+print(a.Detect_Loop())
+# a.Print()
